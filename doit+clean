@@ -1,0 +1,48 @@
+#!/bin/sh
+
+./doit &&
+echo &&
+echo '=====================================================================' &&
+echo '               compilation + installation done ... cleaning          ' &&
+echo '=====================================================================' &&
+echo &&
+settitle 'caroube _C__I_[C]_D__I__' &&
+clean4cvs && (
+
+if [ ! "${USERNAME}" ]
+then
+    echo
+    echo could not determine USERNAME variable, halted...
+    echo
+    echo
+    exit 1
+fi
+
+su "${USERNAME}" -c './dodoc' && exit 0
+) && exit 0
+echo failed somewhere...................................................
+echo "silently cleaning anyway with clean4cvs (logs are in /tmp/${USERNAME}.clean4cvs.logs)"
+clean4cvs >& "/tmp/${USERNAME}.clean4cvs.logs)"
+echo clean4cvs done.
+exit 1
+# su "${USERNAME}" -c 'configure-jd --prefix=/usr' &&
+# su "${USERNAME}" -c maketags
+# echo &&
+# echo '=====================================================================' &&
+# echo '               installation + cleaning done ...                      ' &&
+# echo '=====================================================================' &&
+# echo &&
+# settitle 'caroube _C__I__C_[D]_I__' &&
+# rm -rf caroube-doc
+# su "${USERNAME}" -c 'doxygen caroube.dox'
+# settitle 'caroube _C__I__C__D_[I]_' &&
+# su "${USERNAME}" -c 'rm -rf /home/drux/htdocs/caroube-doc-bak'
+# su "${USERNAME}" -c 'mv /home/drux/htdocs/caroube-doc /home/drux/htdocs/caroube-doc-bak'
+# su "${USERNAME}" -c 'mv caroube-doc /home/drux/htdocs/caroube-doc'
+# su "${USERNAME}" -c 'cp doxygen/background.png /home/drux/htdocs/caroube-doc/html'
+# su "${USERNAME}" -c 'chmod -R a+rX,g+rw /home/drux/htdocs/caroube-doc'
+
+# $Log: doit+clean,v $
+# Revision 1.4  2004/02/28 15:31:42  jd
+# documentation generation and installation tuned to latest disjunkt standards
+#
