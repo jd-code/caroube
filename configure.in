@@ -135,8 +135,9 @@ CFLAGS="$CFLAGS $SDL_CFLAGS"
 CXXFLAGS="$CXXFLAGS $SDL_CFLAGS"
 
 dnl add our local include dir
-CFLAGS="-I"`pwd`"/src/include/caroube $CFLAGS"
-CXXFLAGS="-I"`pwd`"/src/include/caroube $CXXFLAGS"
+ABSSRCDIR=`cd $srcdir && pwd`
+CFLAGS="-I"$ABSSRCDIR"/src/include/caroube $CFLAGS"
+CXXFLAGS="-I"$ABSSRCDIR"/src/include/caroube $CXXFLAGS"
 
 dnl Check for OpenGL
 AC_MSG_CHECKING(for OpenGL support)
