@@ -1,5 +1,5 @@
 ## 
-## $Id: Makefile.am,v 1.6 2004/05/03 23:19:16 jd Exp $
+## $Id$
 ## GenRythm Copyright (C) 2002,2003 Cristelle Barillon & Jean-Daniel Pauget
 ## making genetics and groovy sound/noise/rythms
 ##

@@ -1,5 +1,5 @@
 /* 
- * $Id: readsample.cpp,v 1.5 2004/07/02 07:30:56 jd Exp $
+ * $Id$
  * GenRythm Copyright (C) 2002,2003 Cristelle Barillon & Jean-Daniel Pauget
  * making genetics and groovy sound/noise/rythms
  *
@@ -75,7 +75,7 @@ namespace caroube
 #define CHUNKwavplst 0x74736c70	/* Playing LiST chunk -not handled */
 
 #ifdef SHOWRCS
-static char *rcsid = "$Id: readsample.cpp,v 1.5 2004/07/02 07:30:56 jd Exp $";
+static char *rcsid = "$Id$";
 
 #endif
 

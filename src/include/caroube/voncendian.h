@@ -1,5 +1,5 @@
 /*
- * $Id: voncendian.h,v 1.1 2003/09/24 22:53:44 jd Exp $
+ * $Id$
  * GenRythm Copyright (C) 2002,2003 Cristelle Barillon & Jean-Daniel Pauget
  * making genetics and groovy sound/noise/rythms
  *

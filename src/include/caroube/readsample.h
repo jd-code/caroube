@@ -6,7 +6,7 @@
  *
  * genrythm@disjunkt.com  -  http://genrythm.disjunkt.com/
  *
- * $Id: readsample.h,v 1.3 2003/10/03 21:25:38 jd Exp $
+ * $Id$
  * Groovit Copyright (C) 1998,1999 Jean-Daniel PAUGET
  * making accurate and groovy sound/noise
  *

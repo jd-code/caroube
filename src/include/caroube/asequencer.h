@@ -1,5 +1,5 @@
 /*
- *  $Id: asequencer.h,v 1.1 2003/09/24 22:53:44 jd Exp $
+ *  $Id$
  *
  *  jd - 2003/01/16 a Songe sequencer for genrythm
  *

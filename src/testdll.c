@@ -1,5 +1,5 @@
 /*
- *  $Id: testdll.c,v 1.1 2004/04/30 14:23:22 jd Exp $
+ *  $Id$
  */
 
 /* this function exists only in libraries that are dll, it is used to check for dll-ness at configure */

@@ -1,5 +1,5 @@
 /*
- *  $Id: audio.h,v 1.3 2004/04/30 14:22:02 jd Exp $
+ *  $Id$
  *
  *  jd - 2002/12/03 from oscil.cpp,v 1.5 2002/12/02 23:40:57 cristelle Exp
  *
