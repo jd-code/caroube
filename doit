@@ -11,10 +11,10 @@ fi
 
 
 settitle 'caroube [C]_I__C__D__I__' &&
-configure-jd --prefix=/usr && make-jd && 
+bozoconf-gdevdef --prefix=/usr && make-gdevdef && 
 rm -r /usr/include/caroube &&
 settitle 'caroube _C_[I]_C__D__I__' &&
-make-jd install &&
+make-gdevdef install &&
 chmod -R a+rX /usr/include/caroube && exit 0
 echo failed somewhere.......................................;
 exit 1
