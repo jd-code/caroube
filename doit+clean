@@ -17,15 +17,15 @@ then
 fi
 chmod a+r *.dox
 su "${USERNAME}" -c './dodoc' && exit 0
-) && (	clean4cvs
+) && (	repozclean
 	su "${USERNAME}" -c 'maketags'
-) >& "/tmp/${USERNAME}.clean4cvs.logs" && exit 0
+) >& "/tmp/${USERNAME}.repozclean.logs" && exit 0
 echo failed somewhere...................................................
-echo "silently cleaning anyway with clean4cvs (logs are in /tmp/${USERNAME}.clean4cvs.logs)"
-(   su "${USERNAME}" -c 'clean4cvs'
+echo "silently cleaning anyway with repozclean (logs are in /tmp/${USERNAME}.repozclean.logs)"
+(   su "${USERNAME}" -c 'repozclean'
     su "${USERNAME}" -c 'maketags'
-) >& "/tmp/${USERNAME}.clean4cvs.logs"
-echo clean4cvs done.
+) >& "/tmp/${USERNAME}.repozclean.logs"
+echo repozclean done.
 exit 1
 # su "${USERNAME}" -c 'configure-jd --prefix=/usr' &&
 # su "${USERNAME}" -c maketags
