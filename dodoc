@@ -21,7 +21,7 @@ then
 fi  &&
 (   mkdir "${DIRNAME}"
     cd "${DIRNAME}"
-    # wget http://drux.local/matcalc-doc/html/matcalc.tag
+    # wget http://drux.disjunkt.com/matcalc-doc/html/matcalc.tag
 ) &&
 doxygen "${PROJECTNAME}".dox &&
 
