@@ -1,5 +1,5 @@
 ## 
-## $Id: Makefile.am,v 1.1 2003/09/24 22:53:44 jd Exp $
+## $Id$
 ## Caroube Copyright (C) 2002 Cristelle Barillon, Jean-Daniel PAUGET
 ## A whole set graphical utilities for SDL
 ## 

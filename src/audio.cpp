@@ -1,5 +1,5 @@
 /* 
- * $Id: audio.cpp,v 1.3 2004/04/30 14:22:02 jd Exp $
+ * $Id$
  * GenRythm Copyright (C) 2002,2003 Cristelle Barillon & Jean-Daniel Pauget
  * making genetics and groovy sound/noise/rythms
  *

@@ -1,5 +1,5 @@
 /* 
- * $Id: caroube.h,v 1.3 2004/04/30 14:22:02 jd Exp $
+ * $Id$
  * Caroube Copyright (C) 2002,2003 Cristelle Barillon & Jean-Daniel Pauget
  * A whole set of sound facilities: generations, load, save, sequences
  *

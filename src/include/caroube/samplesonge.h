@@ -1,5 +1,5 @@
 /* 
- * $Id: samplesonge.h,v 1.3 2003/10/03 21:25:38 jd Exp $
+ * $Id$
  * GenRythm Copyright (C) 2002,2003 Cristelle Barillon & Jean-Daniel Pauget
  * making genetics and groovy sound/noise/rythms
  *
