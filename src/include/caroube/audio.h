@@ -45,6 +45,9 @@ namespace caroube
 {
     using namespace std ;
 
+    //! returns the release-name of this module
+    const char * get_caroube_version (void);
+
     // ---------------------------------------------------------------------------------
 
 #ifndef SINT16_MAX

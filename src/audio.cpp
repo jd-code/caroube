@@ -29,13 +29,22 @@
 
 #define CAROUBE_H_GLOBINST
 #include "caroube.h" 
-
+#include "config.h"
 
 
 namespace caroube {
 using namespace std ;
 
 void draw_oscill (Sint16 *p, int nb);
+
+const char * get_caroube_version (void)
+{
+#ifdef BZOUTOTALOCAL
+    return ("Total-Local® " PACKAGE "-" VERSION " $Id$");
+#else
+    return (PACKAGE "-" VERSION " $Id$");
+#endif
+}
 
 // ---------------------------------------------------------------------------------
 
