@@ -74,33 +74,3 @@ namespace caroube
 
 };
 
-
-/*
- * $Log: samplesonge.cpp,v $
- * Revision 1.2  2003/10/03 21:25:38  jd
- * moved fft properties frem samplesongefft to sample itself
- *
- * Revision 1.1.1.1  2003/09/24 22:53:44  jd
- * librarized it
- *
- * Revision 1.1.1.1  2003/09/11 23:52:11  jd
- * first importation
- *
- * Revision 1.3  2003/08/15 22:03:24  jd
- * small corrections about lomehi calculation
- *
- * Revision 1.2  2003/08/14 14:10:20  jd
- * cleaned comments for doxygen
- * added fft
- * added sample sorting with lomehi
- *
- * Revision 1.1.1.1  2003/06/04 13:56:51  jd
- * caroube librarised
- *
- * Revision 1.1  2003/01/18 12:17:55  jd
- * merged genetics + SonGe files
- * first release with sounds
- * cleanup for cvs
- *
- *
- */

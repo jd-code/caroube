@@ -188,16 +188,3 @@ double  ConvertFromIeeeExtended (unsigned char *bytes /* LCN */ )
 	return f;
 }
 
-/*
- * $Log: conv_ieee_ext.c,v $
- * Revision 1.1  2003/09/24 22:53:44  jd
- * Initial revision
- *
- * Revision 1.1.1.1  2003/09/11 23:52:11  jd
- * first importation
- *
- * Revision 1.2  2003/06/06 14:03:19  jd
- * fine cleanup for aesthetic
- *
- *
- */
