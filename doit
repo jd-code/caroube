@@ -1,0 +1,20 @@
+#!/bin/sh
+
+if [ ! "${USERNAME}" ]
+then
+    echo
+    echo could not determine USERNAME variable, halted...
+    echo
+    echo
+    exit 1
+fi
+
+
+settitle 'caroube [C]_I__C__D__I__' &&
+configure-jd --prefix=/usr && make-jd && 
+rm -r /usr/include/caroube &&
+settitle 'caroube _C_[I]_C__D__I__' &&
+make-jd install &&
+chmod -R a+rX /usr/include/caroube && exit 0
+echo failed somewhere.......................................;
+exit 1
