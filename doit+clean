@@ -3,11 +3,9 @@
 ./doit &&
 echo &&
 echo '=====================================================================' &&
-echo '               compilation + installation done ... cleaning          ' &&
+echo '               compilation + installation done ... documenting       ' &&
 echo '=====================================================================' &&
-echo &&
-settitle 'caroube _C__I_[C]_D__I__' &&
-clean4cvs && (
+echo && (
 
 if [ ! "${USERNAME}" ]
 then
@@ -17,12 +15,16 @@ then
     echo
     exit 1
 fi
-
+chmod a+r *.dox
 su "${USERNAME}" -c './dodoc' && exit 0
-) && exit 0
+) && (	clean4cvs
+	su "${USERNAME}" -c 'maketags'
+) >& "/tmp/${USERNAME}.clean4cvs.logs" && exit 0
 echo failed somewhere...................................................
 echo "silently cleaning anyway with clean4cvs (logs are in /tmp/${USERNAME}.clean4cvs.logs)"
-clean4cvs >& "/tmp/${USERNAME}.clean4cvs.logs)"
+(   su "${USERNAME}" -c 'clean4cvs'
+    su "${USERNAME}" -c 'maketags'
+) >& "/tmp/${USERNAME}.clean4cvs.logs"
 echo clean4cvs done.
 exit 1
 # su "${USERNAME}" -c 'configure-jd --prefix=/usr' &&
