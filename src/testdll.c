@@ -17,9 +17,3 @@ char libcaroube_is_dll (void)
 
 #endif /* WIN32 && DLL_EXPORT */
 
-/*
- *  $Log: testdll.c,v $
- *  Revision 1.1  2004/04/30 14:23:22  jd
- *  *** empty log message ***
- *
- */

@@ -46,8 +46,3 @@ fi && exit 0
 echo failed somewhere
 exit 1
 
-
-# $Log: dodoc,v $
-# Revision 1.4  2004/02/28 15:31:42  jd
-# documentation generation and installation tuned to latest disjunkt standards
-#

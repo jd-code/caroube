@@ -67,38 +67,3 @@ namespace caroube
 
 #endif // GR_ASQNCR_H_INC
 
-/*
- * $Log: asequencer.h,v $
- * Revision 1.1  2003/09/24 22:53:44  jd
- * Initial revision
- *
- * Revision 1.1.1.1  2003/09/11 23:52:11  jd
- * first importation
- *
- * Revision 1.2  2003/08/14 14:10:20  jd
- * cleaned comments for doxygen
- * added fft
- * added sample sorting with lomehi
- *
- * Revision 1.1.1.1  2003/06/04 13:56:51  jd
- * caroube librarised
- *
- * Revision 1.5  2003/03/20 17:41:05  jd
- * conceptual correction for SonGeSeq's copy constructor
- *
- * Revision 1.4  2003/02/27 23:38:25  jd
- * nested all audio into namespace "caroube"
- *
- * Revision 1.3  2003/02/25 16:15:00  jd
- * extended name-use in samplesonge inheritants
- *
- * Revision 1.2  2003/02/08 00:18:42  jd
- * added flush
- *
- * Revision 1.1  2003/01/18 12:17:55  jd
- * merged genetics + SonGe files
- * first release with sounds
- * cleanup for cvs
- *
- *
- */

@@ -77,17 +77,3 @@
 
 #endif // CAROUBE_H_INC
 
-/*
- * $Log: caroube.h,v $
- * Revision 1.3  2004/04/30 14:22:02  jd
- * *** empty log message ***
- *
- * Revision 1.2  2003/10/29 23:37:34  jd
- * *** empty log message ***
- *
- * Revision 1.1.1.1  2003/09/24 22:53:44  jd
- * librarized it
- *
- *
- */
- 
