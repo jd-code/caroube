@@ -30,7 +30,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 /* #include <fcntl.h> */
-/* #include <math.h> */
+#include <math.h>
 #include <errno.h>
 #include <string.h>
 #include <sys/stat.h>
