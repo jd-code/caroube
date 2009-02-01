@@ -71,7 +71,8 @@ dnl	CXXFLAGS="$CFLAGS -O2 -Wall"
 dnl CHANGED for JD's ENterGroup default nasty warnings
 CFLAGS="$CFLAGS -O2 -Wall -Wcast-qual -Wwrite-strings"
 dnl CXXFLAGS="$CXXFLAGS -O2 -Wall -Woverloaded-virtual -Wcast-qual -Wwrite-strings -Wstrict-prototypes -Wmissing-prototypes -Wredundant-decls -Winline"
-CXXFLAGS="$CXXFLAGS -O2 -Wall -Woverloaded-virtual -Wcast-qual -Wwrite-strings -Wstrict-prototypes -Wmissing-prototypes -Wredundant-decls"
+dnl CXXFLAGS="$CXXFLAGS -O2 -Wall -Woverloaded-virtual -Wcast-qual -Wwrite-strings -Wstrict-prototypes -Wmissing-prototypes -Wredundant-decls"
+CXXFLAGS="$CXXFLAGS -O2 -Wall -Woverloaded-virtual -Wcast-qual -Wwrite-strings -Wredundant-decls"
 
 dnl are we compiling for windows -----------------------------------------------------------
 
