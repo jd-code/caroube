@@ -244,6 +244,8 @@ Sint16 * Sample::readsample_wav (istream & cin, bool notpreread) {
 
     unsigned char buf [AIFFBUFSIZE],
 	    *bbuf;
+    Sint32 * lbuf = (Sint32 *) buf;
+    Sint16 * ibuf = (Sint16 *) buf;
     
     while (cin)
     {
@@ -251,7 +253,7 @@ Sint16 * Sample::readsample_wav (istream & cin, bool notpreread) {
 	    break;
 	skipped = 0;
 	taille = VONClong ((*(Sint32 *) (buf + 4)));
-	switch (chunkconv (*(Sint32 *) buf)) {
+	switch (chunkconv (*lbuf)) {
 
 	  case CHUNKwavFMT:
 	      if (taille > AIFFBUFSIZE) {
@@ -261,7 +263,7 @@ Sint16 * Sample::readsample_wav (istream & cin, bool notpreread) {
 		  break;
 	      }
 	      cin.read ((char *)buf, taille) ;
-	      if (VONCint (*(Sint16 *) buf) != 1)
+	      if (VONCint (*ibuf) != 1)
 		  cerr << "Sample::readsample_wav : " << fname
 		       << " : data type others than PCM not handled" << endl ;
 	      nbchannel = VONCint ((*(Sint16 *) (buf + 2)));
@@ -400,7 +402,7 @@ Sint16 * Sample::readsample_wav (istream & cin, bool notpreread) {
 	           << (buf[1] >= 32 ? buf[1] : '?')
 	           << (buf[2] >= 32 ? buf[2] : '?')
 	           << (buf[3] >= 32 ? buf[3] : '?')
-		   << "(" << *(Sint32 *) buf << ") invalid chunk mark, skipping "
+		   << "(" << *lbuf << ") invalid chunk mark, skipping "
 		   << taille << " bytes " << endl ;
 	      skipped = 1;
 	  }
@@ -496,13 +498,15 @@ Sint16 * Sample::readsample_aiff (istream & cin, bool notpreread) {
 
     unsigned char buf[AIFFBUFSIZE],
 	    * bbuf;
+    Sint32 * lbuf = (Sint32 *) buf;
+    Sint16 * ibuf = (Sint16 *) buf;
 
     while (cin) {
 	if (!cin.read ((char *)buf, 8))
 	    break;
 	skipped = 0;
 	taille = CONVlong (*(Sint32 *) (buf + 4));
-	switch (chunkconv (*(Sint32 *) buf)) {
+	switch (chunkconv (*lbuf)) {
 	  case CHUNKNAME:
 	      if (taille > AIFFBUFSIZE - 1) {
 		  cerr << "Sample::readsample_aiff : " << fname
@@ -569,7 +573,7 @@ Sint16 * Sample::readsample_aiff (istream & cin, bool notpreread) {
 		  break;
 	      }
 	      cin.read ((char *)buf, taille);
-	      nbchannel = CONVint (*(Sint16 *) buf);
+	      nbchannel = CONVint (*ibuf);
 	      if ((nbchannel < 1) || (nbchannel > 2))
 		  cerr << "Sample::readsample_aiff : " << fname
 		       << nbchannel << " data-channels, only the two firsts will be used" << endl ;
@@ -627,7 +631,8 @@ Sint16 * Sample::readsample_aiff (istream & cin, bool notpreread) {
 		  break;
 	      }
 	      cin.read ((char *)buf, 8);
-	      if ((*(Sint32 *) buf != 0) || (*(Sint32 *) (buf + 4) != 0))
+	      // if ((*(Sint32 *) buf != 0) || (*(Sint32 *) (buf + 4) != 0))
+	      if ((*lbuf != 0) || (*(lbuf + 1) != 0))
 		  cerr << "Sample::readsample_aiff : " << fname
 		       << " : non-null offset or blocksize, ignored" << endl ;
 	      ps = data;
@@ -693,7 +698,7 @@ Sint16 * Sample::readsample_aiff (istream & cin, bool notpreread) {
 	           << (buf[1] >= 32 ? buf[1] : '?')
 	           << (buf[2] >= 32 ? buf[2] : '?')
 	           << (buf[3] >= 32 ? buf[3] : '?')
-		   << "(" << *(Sint32 *) buf << ") invalid chunk mark, skipping "
+		   << "(" << *lbuf << ") invalid chunk mark, skipping "
 		   << taille << " bytes " << endl ;
 	      skipped = 1;
 	  }
@@ -705,7 +710,7 @@ Sint16 * Sample::readsample_aiff (istream & cin, bool notpreread) {
 }
 
 Sint16 * Sample::readsample (const char *nomfile) {
-    char   *p = NULL;
+    const char   *p = NULL;
     Sint16  *tempo;
 
 #ifdef SHOWRCS
