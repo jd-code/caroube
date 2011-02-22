@@ -360,7 +360,10 @@ namespace caroube
 
     // ---------------------------------------------------------------------------------
 
+    void pauseaudio (int pause_on);
     bool initaudio(size_t nbsamples = 1024);
+    bool initaudio(string & appname, size_t nbsamples = 1024);
+    bool leaveaudio (void);
 
 };
 #endif // BB_AUDIO_H_INC
