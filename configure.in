@@ -159,6 +159,29 @@ AC_SUBST(GL_LIBS)
 dnl	GLUT_LIBS="$GL_LIBS -lGLU -lglut"
 dnl	AC_SUBST(GLUT_LIBS)
 
+dnl check for jackd ------------------------------------------------------------------
+AC_MSG_CHECKING(for jackd)
+have_jackd=no
+SAVECXXFLAGS="$CXXFLAGS"
+CXXFLAGS="$SAVECXXFLAGS $INCPATH `pkg-config --cflags --libs jack`"
+AC_TRY_COMPILE([
+#include <jack/jack.h>
+],[
+],[
+have_jackd=yes
+])
+CXXFLAGS="$SAVECXXFLAGS `pkg-config --cflags --libs jack`"
+AC_MSG_RESULT($have_jackd)
+if test x$have_jackd = xyes; then
+    AC_DEFINE(CAROUBCANJACK, 1, we build a jack enabled lib)
+else
+    AC_MSG_ERROR(Unable to find jackd)
+fi
+
+dnl end of check for jackd template --------------------------------------------------
+
+
+
 # Finally create all the generated files
 AC_OUTPUT([
 	Makefile
