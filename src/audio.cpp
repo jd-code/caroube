@@ -106,8 +106,11 @@ ostream& operator<< (ostream & out, Envelope & e) {
 bool usejack = false;	    // are we currently using jack ?
 bool leftjack = false;	    // have we been laid off from some jack server ?
 
-jack_port_t *output_portl,  // jack outlets
-	    *output_portr;
+jack_port_t *output_portl = NULL,  // jack outlets
+	    *output_portr = NULL,
+            *input_portl = NULL,   // jack inlets
+            *input_portr = NULL;
+
 jack_client_t *jclient;	    // jack-client handle towrad the jack-server
 
 
@@ -131,7 +134,13 @@ int jackcallback (jack_nframes_t nb, void *jack_arg) {
     jack_default_audio_sample_t *jackoutl =
         (jack_default_audio_sample_t *) jack_port_get_buffer (output_portl, nb);
 
+    jack_default_audio_sample_t *jackinr = (input_portr == NULL) ? NULL :
+        (jack_default_audio_sample_t *) jack_port_get_buffer (input_portr, nb);
+    jack_default_audio_sample_t *jackinl = (input_portl == NULL) ? NULL :
+        (jack_default_audio_sample_t *) jack_port_get_buffer (input_portl, nb);
+
     PlayedPSonGe::iterator ilo;
+    CapturingSonCa::iterator ilc;
     Sint16 sample;
 
 //	wondering if the nb param would gitter ...
@@ -143,8 +152,15 @@ int jackcallback (jack_nframes_t nb, void *jack_arg) {
 //	if (dumpit == 27)
 //	    dumpit = 0;
 
+
     for (i=0 ; i<nb ; i++) {
 	if ((i & BUCKETMASK) == 0) {	    // JDJDJDJD il faudrait avoir un compteur general sinon ca peut se decaler ...
+	    for (ilc=lc.begin() ; ilc!=lc.end() ; ) {
+		isonca = ilc;
+		ilc++;				// we increment before calling bucketComp, because...
+		isonca->first->bucketComp() ;   // ...bucketComp may supress the SonGe currently pointed by isonge 
+	    }
+	    
 	    for (ilo=lo.begin() ; ilo!=lo.end() ; ) {
 		isonge = ilo;
 		ilo++;				// we increment before calling bucketComp, because...
@@ -154,6 +170,27 @@ int jackcallback (jack_nframes_t nb, void *jack_arg) {
       
         Sint32 Cl = 0,
                Cr = 0;
+
+	double  dl, dr;
+
+	if (jackinl == NULL) {
+	    dl = 0.0;
+	} else {
+	    dl = (double)(*jackinl++) * 32768.0;
+	    dl = (dl >= 32767.0) ? 32767.0 : dl;
+	    dl = (dl <= -32767.0) ? -32767.0 : dl;
+	}
+	if (jackinr == NULL) {
+	    dr = 0.0;
+	} else {
+	    dr = (double)(*jackinr++) * 32768.0;
+	    dr = (dr >= 32767.0) ? 32767.0 : dr;
+	    dr = (dr <= -32767.0) ? -32767.0 : dr;
+	}
+	
+	for (ilc=lc.begin() ; ilc!=lc.end() ; ilc++) {
+	    ilc->first->getSample((Sint16)dl, (Sint16)dr);
+	}
 	for (ilo=lo.begin() ; ilo!=lo.end() ; ilo++) {
 	    sample = ilo->first->getSample();
 	    Cl += (sample * ilo->first->vl) >> 8;
@@ -223,6 +260,20 @@ void PlayedPSonGe::push (SonGe *p) {
 
 // ---------------------------------------------------------------------------------
 
+
+void CapturingSonCa::push (SonCa *p) {
+    iterator i = find (p);
+    if (i != end()) {
+	i->first->rewind ();	// JDJDJDJD c'est carrement discutable comme concept
+    }
+    else {
+	MapCSonCa::operator[] (p);
+    }
+}
+
+
+// ---------------------------------------------------------------------------------
+
 void pauseaudio (int pause_on) {
 #ifdef CAROUBCANJACK
     if (usejack) {
@@ -242,6 +293,26 @@ void pauseaudio (int pause_on) {
     SDL_PauseAudio(pause_on);
 #ifdef CAROUBCANJACK
     }
+#endif
+}
+
+bool initinputaudio (void) {
+#ifdef CAROUBCANJACK
+    if (!usejack) {
+	cerr << "audio input is only handled throught jack. set SDL_AUDIODRIVER to jack." << endl;
+	return false;
+    }
+    
+    input_portl = jack_port_register (jclient, "inputl", JACK_DEFAULT_AUDIO_TYPE, JackPortIsInput, 0);
+    input_portr = jack_port_register (jclient, "inputr", JACK_DEFAULT_AUDIO_TYPE, JackPortIsInput, 0);
+
+    if ((input_portl == NULL) || (input_portr == NULL)) {
+	cerr << "some jack input ports could notr be created ??" << endl;
+	return false;
+    }
+    return true;
+#else
+    return false;
 #endif
 }
 

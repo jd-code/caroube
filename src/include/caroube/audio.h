@@ -112,6 +112,27 @@ namespace caroube
     CAROUBE_H_SCOPE PlayedPSonGe::iterator isonge;
     
 
+
+
+
+    class SonCa;
+
+    typedef list<SonCa *> ListCSonCa;	    // JDJDJD probably a vector would be better
+
+    typedef map<SonCa *, int> MapCSonCa;
+
+    class CapturingSonCa : public MapCSonCa
+    {
+	public:
+	    void push (SonCa *p);
+
+    };
+
+    //! the list of currently capturing Sonca
+    CAROUBE_H_SCOPE CapturingSonCa lc;
+    //! the currently computed SonCa (not for public use !)
+    CAROUBE_H_SCOPE CapturingSonCa::iterator isonca;
+
     //! SOuNd GEnerator - the canvas for any sound object
     /*! 
      *  any object that finally produce sounds inherit from SonGe
@@ -164,6 +185,45 @@ namespace caroube
 	    virtual ~SonGe (void) { }
     };
 
+    class SonCa
+    {   private:
+	    string name;
+
+	protected:
+	    //! sets thename of the SonCa
+	    void setname (const string & name) { SonCa::name = name; } 
+	    void setname (const char * name) { SonCa::name = name; } 
+
+	public:
+	    inline SonCa (void) { name = "no-name"; }
+
+	    //! the every-sample called-back method
+	    /*! this virtual member function is called back every time a sample is captured
+	     *  be careful : this function is called 44 thousand times per seconds,
+	     *  it's design should be as light as possible.
+	     */
+	    virtual inline void getSample (Sint16 l, Sint16 r) {}
+
+	    //! the every-bucket-sample called-back method
+	    /*! this virtual member function is called back every time BUCKETNBSAMPLE
+	     *  were computed.
+	     *  It is designed for calculations that are needed only from time to time
+	     *  in order to release the stress of getSample
+	     */
+	    virtual inline Uint16 bucketComp (void) { lc.erase (isonca); return 0; }
+
+	    //! puts the sound capturer in the states just before it begins capturing any sound
+	    /*! If such a concept exists for the said object, of course... */
+	    virtual inline void rewind (void) { }
+
+	    //! method for retrieving the SonCa's name.
+	    const string & getname (void) { return name; }
+
+	    /*! the destructor doesn't remove from the list of capturing SonCa.
+	     *  also doesn't remove from other refernce such as sequencer...
+	     */
+	    virtual ~SonCa (void) { }
+    };
 
     // ---------------------------------------------------------------------------------
 
@@ -363,6 +423,7 @@ namespace caroube
     void pauseaudio (int pause_on);
     bool initaudio(size_t nbsamples = 1024);
     bool initaudio(string & appname, size_t nbsamples = 1024);
+    bool initinputaudio (void);
     bool leaveaudio (void);
 
 };
