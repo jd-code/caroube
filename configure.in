@@ -163,19 +163,20 @@ dnl check for jackd ------------------------------------------------------------
 AC_MSG_CHECKING(for jackd)
 have_jackd=no
 SAVECXXFLAGS="$CXXFLAGS"
-CXXFLAGS="$SAVECXXFLAGS $INCPATH `pkg-config --cflags --libs jack`"
-AC_TRY_COMPILE([
+CXXFLAGS="$SAVECXXFLAGS $INCPATH `pkg-config --exists jack && pkg-config --cflags --libs jack`"
+AC_COMPILE_IFELSE([
 #include <jack/jack.h>
 ],[
-],[
 have_jackd=yes
+],[
+have_jackd=no
 ])
-CXXFLAGS="$SAVECXXFLAGS `pkg-config --cflags --libs jack`"
 AC_MSG_RESULT($have_jackd)
 if test x$have_jackd = xyes; then
     AC_DEFINE(CAROUBCANJACK, 1, we build a jack enabled lib)
+    CXXFLAGS="$SAVECXXFLAGS `pkg-config --cflags --libs jack`"
 else
-    AC_MSG_ERROR(Unable to find jackd)
+    AC_DEFINE(CAROUBCANJACK, 0, we build a jack free lib)
 fi
 
 dnl end of check for jackd template --------------------------------------------------
