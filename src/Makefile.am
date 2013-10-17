@@ -35,6 +35,7 @@ libcaroube_la_LDFLAGS = -version-info @lt_major@:@lt_revision@:@lt_age@ @GL_LIBS
 ##			-Xlinker --export-all-symbols \
 
 libcaroube_la_SOURCES = samplesonge.cpp audio.cpp conv_ieee_ext.c \
+			midi.cpp \
 			readsample.cpp asequencer.cpp \
 			fft.c \
 			testdll.c
@@ -46,6 +47,7 @@ libcaroube_la_SOURCES = samplesonge.cpp audio.cpp conv_ieee_ext.c \
 
 pkginclude_HEADERS =	include/caroube/asequencer.h \
 			include/caroube/audio.h \
+			include/caroube/midi.h \
 			include/caroube/caroube.h \
 			include/caroube/conv_ieee_ext.h \
 			include/caroube/readsample.h \
