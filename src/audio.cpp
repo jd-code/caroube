@@ -27,12 +27,16 @@
 #include <stdlib.h>
 #include <math.h>
 
-#define CAROUBE_H_GLOBINST
-#include "caroube.h" 
 #include "config.h"
 #ifdef CAROUBCANJACK
 #include <jack/jack.h> 
+#include <jack/midiport.h>
+#include <errno.h>  // ENODATA
 #endif
+
+#define CAROUBE_H_GLOBINST
+#include "caroube.h" 
+#include "midi.h"
 
 namespace caroube {
 using namespace std ;
@@ -109,7 +113,8 @@ bool leftjack = false;	    // have we been laid off from some jack server ?
 jack_port_t *output_portl = NULL,  // jack outlets
 	    *output_portr = NULL,
             *input_portl = NULL,   // jack inlets
-            *input_portr = NULL;
+            *input_portr = NULL,
+	    *midi_input = NULL;	    // jack midi inlet
 
 jack_client_t *jclient;	    // jack-client handle towrad the jack-server
 
@@ -138,6 +143,24 @@ int jackcallback (jack_nframes_t nb, void *jack_arg) {
         (jack_default_audio_sample_t *) jack_port_get_buffer (input_portr, nb);
     jack_default_audio_sample_t *jackinl = (input_portl == NULL) ? NULL :
         (jack_default_audio_sample_t *) jack_port_get_buffer (input_portl, nb);
+
+    if (midi_input != NULL) {
+	jack_midi_event_t event;
+	void* midiin_buf = jack_port_get_buffer(midi_input, nb);
+	int i;
+	int n = jack_midi_get_event_count(midiin_buf);
+	for (i=0 ; i<n ; i++) {
+	    if (jack_midi_event_get (&event, midiin_buf, i) != ENODATA) {
+		if (event.size > 0) {
+		    int channel = ((unsigned char *)event.buffer)[0] & 0x0f;
+		    ActivMidiListener::iterator mi;
+		    for (mi=midil[channel].begin() ; mi!=midil[channel].end() ; mi++) {
+			mi->first->signalback (event);
+		    }
+		}
+	    }
+	}
+    }
 
     PlayedPSonGe::iterator ilo;
     CapturingSonCa::iterator ilc;
@@ -346,6 +369,8 @@ if (env_sdl_audiodriver != NULL)
 
 	output_portl = jack_port_register (jclient, "outputl", JACK_DEFAULT_AUDIO_TYPE, JackPortIsOutput, 0);
 	output_portr = jack_port_register (jclient, "outputr", JACK_DEFAULT_AUDIO_TYPE, JackPortIsOutput, 0);
+
+	midi_input = jack_port_register (jclient, "input", JACK_DEFAULT_MIDI_TYPE, JackPortIsInput, 0);
     } else {
 #endif
     SDL_AudioSpec wanted, obtained;
