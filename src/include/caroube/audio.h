@@ -229,7 +229,7 @@ namespace caroube
 
     class Oscillator : public SonGe
     {   public:
-	    Oscillator (int freq);
+	    Oscillator (int freq = 0);
 	    inline Sint16 getSample (void) {
 		phase += dphi;
 		phase &= LSREFMASQ;
@@ -311,7 +311,7 @@ namespace caroube
 		isfinished = false;
 	    }
 	    inline EnvGen & operator= (const EnvGen & eg) {
-		cerr << "EnvGen & EnvGen::operator=(const EnvGen &) on est appelé !!!" << endl ;
+		cerr << "EnvGen & EnvGen::operator=(const EnvGen &) on est appelÃ© !!!" << endl ;
 		// JDJDJDJD faire attentention a l'auto-affectation (stroustrup p.272)
 		// variante : (Envelope &) (*this) = (Envelope)eg;
 		*(Envelope *) this = (Envelope)eg;
