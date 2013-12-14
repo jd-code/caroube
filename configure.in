@@ -135,6 +135,10 @@ AM_PATH_SDL($SDL_VERSION,
 CFLAGS="$CFLAGS $SDL_CFLAGS"
 CXXFLAGS="$CXXFLAGS $SDL_CFLAGS"
 
+dnl add the prefix to include search
+CFLAGS="-I ${prefix}/include $CFLAGS"
+CXXFLAGS="-I ${prefix}/include $CXXFLAGS"
+
 dnl add our local include dir
 ABSSRCDIR=`cd $srcdir && pwd`
 CFLAGS="-I"$ABSSRCDIR"/src/include/caroube $CFLAGS"
@@ -175,8 +179,8 @@ AC_MSG_RESULT($have_jackd)
 if test x$have_jackd = xyes; then
     AC_DEFINE(CAROUBCANJACK, 1, we build a jack enabled lib)
     CXXFLAGS="$SAVECXXFLAGS `pkg-config --cflags --libs jack`"
-else
-    AC_DEFINE(CAROUBCANJACK, 0, we build a jack free lib)
+dnl else
+dnl	AC_DEFINE(CAROUBCANJACK, 0, we build a jack free lib)
 fi
 
 dnl end of check for jackd template --------------------------------------------------

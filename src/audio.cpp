@@ -76,7 +76,7 @@ void initDphi (void) {
 
 // ---------------------------------------------------------------------------------
 
-Oscillator::Oscillator (int freq = 0)  : SonGe () {
+Oscillator::Oscillator (int freq /* = 0 */)  : SonGe () {
     dphi = (Sint32)(((double)freq * LSREF * DPHIMULT) / 44100.0);
 }
 
